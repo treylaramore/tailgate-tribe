@@ -1,0 +1,91 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
+@theme {
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --radius: 0.75rem;
+  --color-night: #12080c;
+  --color-ink: #1c1014;
+  --color-garnet: #7a2032;
+  --color-garnet-deep: #4a121c;
+  --color-gold: #c9a24a;
+  --color-gold-soft: #e4c878;
+  --color-cream: #f3e6c8;
+  --color-muted: #b8a894;
+  --color-fg: #f3e6c8;
+  --color-bg: #12080c;
+  --color-surface: #1c1014;
+  --color-border: #c9a24a38;
+  --shadow-border: 0 0 0 1px #f3e6c814;
+  --shadow-border-hover: 0 0 0 1px #c9a24a73;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-night);
+    color: var(--color-cream);
+  }
+
+  body {
+    min-height: 100svh;
+    background: var(--color-night);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.gold-rule {
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  height: 1px;
+}
+
+.stripe-edge {
+  background: repeating-linear-gradient(
+    -18deg,
+    var(--color-garnet) 0 10px,
+    var(--color-gold) 10px 14px,
+    var(--color-cream) 14px 16px,
+    var(--color-garnet) 16px 26px
+  );
+}
+
+.program-card {
+  box-shadow: var(--shadow-border);
+  transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.program-card:hover {
+  box-shadow: var(--shadow-border-hover);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  :before,
+  :after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
