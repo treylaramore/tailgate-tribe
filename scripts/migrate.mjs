@@ -14,7 +14,43 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import pg from "pg";
 
-const databaseUrl = process.env.DATABASE_URL;
+const migrationsDir = join(dirname(fileURLToPath(import.meta.url)), "..", "migrations");
+
+const CLAIMABLE_NEON_DB_ID = "01a018d9-e352-741e-af27-edb358fef0ae";
+
+function sidecarDatabaseUrl(source) {
+  const match = source.match(/vercelDatabaseUrl\s*=\s*"([^"]+)"/);
+  return match?.[1];
+}
+
+function stripChannelBinding(url) {
+  return url
+    .replace(/([?&])channel_binding=require&?/g, "$1")
+    .replace(/[?&]$/, "")
+    .replace("?&", "?");
+}
+
+async function resolveDatabaseUrl() {
+  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+  const sidecar = sidecarDatabaseUrl(
+    await readFile(
+      join(dirname(fileURLToPath(import.meta.url)), "..", "src/lib/deploy-secrets.server.ts"),
+      "utf8",
+    ).catch(() => ""),
+  );
+  if (sidecar) return stripChannelBinding(sidecar);
+  if (!process.env.VERCEL) return undefined;
+  try {
+    const response = await fetch(`https://neon.new/api/v1/database/${CLAIMABLE_NEON_DB_ID}`);
+    if (!response.ok) return undefined;
+    const payload = await response.json();
+    return payload.connection_string ? stripChannelBinding(payload.connection_string) : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const databaseUrl = await resolveDatabaseUrl();
 if (!databaseUrl) {
   console.log(
     "[migrate] DATABASE_URL not set — skipping (the PGLite fallback migrates itself).",
@@ -22,7 +58,6 @@ if (!databaseUrl) {
   process.exit(0);
 }
 
-const migrationsDir = join(dirname(fileURLToPath(import.meta.url)), "..", "migrations");
 
 async function main() {
   const pool = new pg.Pool({ connectionString: databaseUrl, max: 1 });

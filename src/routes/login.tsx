@@ -259,7 +259,7 @@ function LoginPage() {
               {mode === "signin" ? "New here? Create an account" : "Already on the list? Sign in"}
             </button>
             <p className="mt-5 text-xs text-muted">
-              Google and X open a small sign-in window. If nothing happens, allow pop-ups or use email.
+              Google and X take you to a sign-in page. If that fails, use email below.
             </p>
           </>
         ) : null}

@@ -28,5 +28,13 @@ export const GROK_ISSUER_DEFAULT = "https://auth.grok.me";
  * the live preview's real origin from the request host and validates it against
  * this list (wildcard-matched), so the OAuth `redirect_uri` becomes the concrete
  * `https://<preview-host>/api/auth/oauth2/callback/...` the broker allows.
+ *
+ * `*.vercel.app` is included so a personal Vercel copy of the app can start
+ * Google / X (dynamic baseURL + trusted origin). The grok-sandbox host stays
+ * required for the live preview.
  */
-export const PREVIEW_ALLOWED_HOSTS = ["*.grok-sandbox.com"] as const;
+export const PREVIEW_ALLOWED_HOSTS = [
+  "*.grok-sandbox.com",
+  "*.vercel.app",
+  "tailgate-tribe.vercel.app",
+] as const;

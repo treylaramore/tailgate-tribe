@@ -1,5 +1,53 @@
+import { vercelAuthSecret, vercelDatabaseUrl } from "./deploy-secrets.server";
+
 /** Which database backend is active. */
 export type DbSource = "neon" | "pglite";
+
+/** Claimable Neon used only when a personal Vercel deploy has no DATABASE_URL. */
+const CLAIMABLE_NEON_DB_ID = "01a018d9-e352-741e-af27-edb358fef0ae";
+
+function stripChannelBinding(url: string): string {
+  return url
+    .replace(/([?&])channel_binding=require&?/g, "$1")
+    .replace(/[?&]$/, "")
+    .replace("?&", "?");
+}
+
+async function applyVercelFallbacks(): Promise<void> {
+  if (typeof window !== "undefined" || typeof process === "undefined" || !process.env.VERCEL) {
+    return;
+  }
+  if (!process.env.BETTER_AUTH_SECRET?.trim()) {
+    if (vercelAuthSecret) {
+      process.env.BETTER_AUTH_SECRET = vercelAuthSecret;
+    } else {
+      const { createHash } = await import("node:crypto");
+      process.env.BETTER_AUTH_SECRET = createHash("sha256")
+        .update(`tailgate-tribe:${CLAIMABLE_NEON_DB_ID}`)
+        .digest("hex");
+    }
+  }
+  if (process.env.DATABASE_URL?.trim()) return;
+  if (vercelDatabaseUrl) {
+    process.env.DATABASE_URL = stripChannelBinding(vercelDatabaseUrl);
+    return;
+  }
+  try {
+    const response = await fetch(`https://neon.new/api/v1/database/${CLAIMABLE_NEON_DB_ID}`);
+    if (!response.ok) {
+      console.error("[db] claimable Neon lookup failed:", response.status);
+      return;
+    }
+    const payload = (await response.json()) as { connection_string?: string };
+    if (payload.connection_string) {
+      process.env.DATABASE_URL = stripChannelBinding(payload.connection_string);
+    }
+  } catch (error) {
+    console.error("[db] claimable Neon lookup failed:", error);
+  }
+}
+
+await applyVercelFallbacks();
 
 // An empty/whitespace DATABASE_URL (an easy misconfig in deploy UIs) must mean
 // "unset" — otherwise production would silently run on the PGLite fallback.
@@ -221,6 +269,13 @@ export async function getPglite(): Promise<import("@electric-sql/pglite").PGlite
  */
 export function ensureDbReady(): Promise<void> {
   if (dbSource !== "pglite") return Promise.resolve();
+  // Vercel serverless has no writable PGLite data file. Refuse instead of
+  // crashing the whole function with ENOENT on `/var/task/_libs/pglite.data`.
+  if (typeof process !== "undefined" && process.env.VERCEL) {
+    return Promise.reject(
+      new Error("DATABASE_URL is required on Vercel (PGLite cannot start there)"),
+    );
+  }
   return getSql().then(() => undefined);
 }
 
@@ -230,9 +285,13 @@ const globalBoot = globalThis as typeof globalThis & {
   __pgBootstrapPromise__?: Promise<void>;
 };
 if (typeof window === "undefined" && dbSource === "pglite") {
-  globalBoot.__pgBootstrapPromise__ ??= ensureDbReady().catch((err) => {
-    globalBoot.__pgBootstrapPromise__ = undefined;
-    console.error("[db] PGLite bootstrap failed:", err);
-    throw err;
-  });
+  // Skip eager PGLite on Vercel — it cannot open its WASM sidecar there and
+  // an unhandled rejection takes down every request (including OAuth).
+  if (!(typeof process !== "undefined" && process.env.VERCEL)) {
+    globalBoot.__pgBootstrapPromise__ ??= ensureDbReady().catch((err) => {
+      globalBoot.__pgBootstrapPromise__ = undefined;
+      console.error("[db] PGLite bootstrap failed:", err);
+      throw err;
+    });
+  }
 }
