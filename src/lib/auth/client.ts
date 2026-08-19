@@ -72,6 +72,10 @@ function inLivePreview(): boolean {
   );
 }
 
+function onPersonalVercel(): boolean {
+  return typeof window !== "undefined" && window.location.hostname.endsWith(".vercel.app");
+}
+
 /** Message the popup posts back to the opener once sign-in completes. */
 type PopupMessage = { source: "grok-auth-popup"; token: string | null; error?: string };
 
@@ -135,6 +139,19 @@ export async function signIn(
       }
     }
     return;
+  }
+
+  // Personal Vercel copies cannot use the Grok preview OAuth client —
+  // auth.grok.me rejects `*.vercel.app` callbacks with Invalid redirect URI.
+  if (onPersonalVercel()) {
+    if (providerId === "grok-google") {
+      const dest = `/api/auth/google/start?redirect=${encodeURIComponent(callbackURL)}`;
+      window.location.href = dest;
+      return;
+    }
+    throw new Error(
+      "X sign-in isn't available on this address yet. Use Google or email below.",
+    );
   }
 
   const { data, error } = await authClient.signIn.oauth2({

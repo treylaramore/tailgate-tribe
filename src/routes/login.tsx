@@ -48,6 +48,12 @@ function friendlyAuthError(error: unknown, fallback: string) {
   if (lower.includes("invalid origin")) {
     return "This page's address isn't allowed for sign-in. Open the Tribe from its usual link and try again.";
   }
+  if (lower.includes("invalid redirect")) {
+    return "Google isn't wired for this address yet. Use email below, or add a Google client in The Booth.";
+  }
+  if (lower.includes("x sign-in isn't available")) {
+    return "X isn't wired on this address yet. Use Google or email below.";
+  }
   if (lower.includes("invalid password") || lower.includes("invalid email") || lower.includes("invalid credentials")) {
     return "That email or password didn't match.";
   }
@@ -66,9 +72,14 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [error, setError] = useState(
-    oauthError ? "Google or X sign-in didn't finish. Try again, or use email below." : "",
-  );
+  const [error, setError] = useState(() => {
+    if (oauthError === "google-setup") {
+      return "Google isn't connected on this address yet. Use email below, or add a Google client ID in The Booth (Studio).";
+    }
+    if (oauthError === "google-denied") return "Google sign-in was cancelled. Try again, or use email below.";
+    if (oauthError) return "Google sign-in didn't finish. Try again, or use email below.";
+    return "";
+  });
 
   async function finishSignedIn() {
     try {

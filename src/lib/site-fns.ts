@@ -128,3 +128,22 @@ export const getImageRecord = createServerFn({ method: "GET" })
     `;
     return rows[0] ?? null;
   });
+
+export const getGoogleAuthStatus = createServerFn({ method: "GET" })
+  .middleware([authMiddleware])
+  .handler(async ({ context }) => {
+    await requireEditor(context.userId);
+    const { getGoogleSettingsPublic, googleCallbackUrl } = await import("@/lib/auth/google-oauth.server");
+    const status = await getGoogleSettingsPublic();
+    return { ...status, callbackUrl: googleCallbackUrl() };
+  });
+
+export const saveGoogleAuthSettings = createServerFn({ method: "POST" })
+  .middleware([authMiddleware])
+  .validator((data: { clientId: string; clientSecret: string }) => data)
+  .handler(async ({ context, data }) => {
+    await requireEditor(context.userId);
+    const { saveGoogleSettings } = await import("@/lib/auth/google-oauth.server");
+    await saveGoogleSettings(data);
+    return { ok: true };
+  });

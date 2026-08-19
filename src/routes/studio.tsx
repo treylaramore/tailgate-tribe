@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
 import { cn } from "@/lib/cn";
 import { COPY_FIELDS, DEFAULT_COPY, DEFAULT_FAQS, IMAGE_SLOTS, parseFaqs, type FaqItem } from "@/lib/site-content";
-import { addEditor, getEditorStatus, listEditors, restoreImage, saveCopy, saveImage } from "@/lib/site-fns";
+import { addEditor, getEditorStatus, getGoogleAuthStatus, listEditors, restoreImage, saveCopy, saveGoogleAuthSettings, saveImage } from "@/lib/site-fns";
 import { SiteImage, useSite } from "@/lib/site-provider";
 
 export const Route = createFileRoute("/studio")({ component: StudioPage });
@@ -58,7 +58,7 @@ function compress(src: string, maxWidth: number, quality: number) {
 function StudioPage() {
   const { user, isPending } = useCurrentUserState();
   const { text, reload } = useSite();
-  const [tab, setTab] = useState<"photos" | "words">("photos");
+  const [tab, setTab] = useState<"photos" | "words" | "signin">("photos");
   const [gate, setGate] = useState<"loading" | "in" | "out">("loading");
   const [email, setEmail] = useState<string | null>(null);
 
@@ -120,6 +120,7 @@ function StudioPage() {
             [
               ["photos", "Photos"],
               ["words", "Words"],
+              ["signin", "Sign-in"],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -135,7 +136,15 @@ function StudioPage() {
             </button>
           ))}
         </div>
-        <div className="mt-8">{tab === "photos" ? <PhotoEditor onChange={reload} /> : <WordEditor initial={text} onSaved={reload} />}</div>
+        <div className="mt-8">
+          {tab === "photos" ? (
+            <PhotoEditor onChange={reload} />
+          ) : tab === "words" ? (
+            <WordEditor initial={text} onSaved={reload} />
+          ) : (
+            <GoogleSetup />
+          )}
+        </div>
       </main>
     </SiteShell>
   );
@@ -346,3 +355,78 @@ function WordEditor({
     </div>
   );
 }
+
+function GoogleSetup() {
+  const [status, setStatus] = useState<{ configured: boolean; clientIdTail: string; callbackUrl: string } | null>(null);
+  const [clientId, setClientId] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    getGoogleAuthStatus()
+      .then(setStatus)
+      .catch(() => setStatus({ configured: false, clientIdTail: "", callbackUrl: "https://tailgate-tribe.vercel.app/api/auth/google/callback" }));
+  }, []);
+
+  async function save() {
+    setSaving(true);
+    try {
+      await saveGoogleAuthSettings({ data: { clientId, clientSecret } });
+      const next = await getGoogleAuthStatus();
+      setStatus(next);
+      setClientSecret("");
+      toast.success("Google sign-in is connected.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not save Google settings");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="max-w-2xl space-y-5 bg-ink p-5">
+      <h2 className="font-display text-2xl uppercase text-gold">Google on Vercel</h2>
+      <p className="text-sm text-muted">
+        The original grok.me site already has Google. This Vercel copy needs its own Google client because the
+        shared Grok sign-in only allows grok preview addresses.
+      </p>
+      {status?.configured ? (
+        <p className="text-sm text-cream">
+          Connected. Client ends in <span className="text-gold">{status.clientIdTail}</span>.
+        </p>
+      ) : (
+        <p className="text-sm text-cream">Not connected yet — email sign-in still works.</p>
+      )}
+      <ol className="list-decimal space-y-2 pl-5 text-sm text-muted">
+        <li>
+          Open{" "}
+          <a className="text-gold underline" href="https://console.cloud.google.com/auth/clients" target="_blank" rel="noreferrer">
+            Google Auth Platform
+          </a>{" "}
+          and create a Web application client.
+        </li>
+        <li>
+          Authorized JavaScript origin:{" "}
+          <code className="break-all text-cream">https://tailgate-tribe.vercel.app</code>
+        </li>
+        <li>
+          Authorized redirect URI:{" "}
+          <code className="break-all text-cream">{status?.callbackUrl ?? "https://tailgate-tribe.vercel.app/api/auth/google/callback"}</code>
+        </li>
+        <li>Paste the client ID and secret here.</li>
+      </ol>
+      <label className="block">
+        <span className="mb-1.5 block text-xs tracking-[0.14em] text-muted uppercase">Client ID</span>
+        <Input value={clientId} onChange={(event) => setClientId(event.target.value)} placeholder="….apps.googleusercontent.com" />
+      </label>
+      <label className="block">
+        <span className="mb-1.5 block text-xs tracking-[0.14em] text-muted uppercase">Client secret</span>
+        <Input type="password" value={clientSecret} onChange={(event) => setClientSecret(event.target.value)} placeholder="GOCSPX-…" />
+      </label>
+      <Button type="button" onClick={() => void save()} disabled={saving || !clientId.trim() || !clientSecret.trim()}>
+        {saving ? "Saving…" : "Save Google client"}
+      </Button>
+    </div>
+  );
+}
+
