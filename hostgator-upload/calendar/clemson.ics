@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tailgate Tribe//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tribe vs Clemson
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:clemson-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Tailgate Tribe vs Clemson
+DESCRIPTION:Tailgate time TBA — we’ll post it in the Facebook group.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tailgate Tribe//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tribe vs Central Arkansas
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:cark-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20260926
+DTEND;VALUE=DATE:20260927
+SUMMARY:Tailgate Tribe vs Central Arkansas
+DESCRIPTION:Tailgate time TBA — we’ll post it in the Facebook group.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+END:VCALENDAR

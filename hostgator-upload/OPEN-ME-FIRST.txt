@@ -1,0 +1,11 @@
+tt-build:21
+
+If this file does not say tt-build:21, you opened an old zip.
+
+Hero line:
+  No tailgate tickets. No catch. Just Noles.
+
+Footer line:
+  Free, family-friendly, and fun under the inflatable tent.
+
+Then open index.html and search for those two phrases.

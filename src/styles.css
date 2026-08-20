@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/oswald.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/figtree.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Figtree";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/figtree-italic.woff2") format("woff2");
+}
+
+@theme {
+  --color-garnet: #782f40;
+  --color-garnet-deep: #2a0f16;
+  --color-garnet-dark: #4a1c28;
+  --color-gold: #ceb888;
+  --color-gold-bright: #e4d4a8;
+  --color-cream: #f3ebdc;
+  --color-ink: #14080c;
+  --color-bg: #14080c;
+  --color-surface: #1c0c12;
+  --color-surface-2: #261017;
+  --color-fg: #f3ebdc;
+  --color-muted: #c4b6a6;
+  --color-primary: #ceb888;
+  --color-border: #ceb88838;
+  --color-ring: #ceb888;
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius: 0.75rem;
+  --tracking-kicker: 0.28em;
+  --tracking-display: 0.04em;
+  --text-kicker: 0.75rem;
+  --shadow-lift: 0 24px 48px -28px rgb(20 8 12 / 0.7);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    letter-spacing: var(--tracking-display);
+    line-height: 0.95;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: var(--color-surface);
+}
+.tribe-pin {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+@utility kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-kicker);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

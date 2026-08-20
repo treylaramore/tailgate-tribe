@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tailgate Tribe//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tribe at Alabama
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:alabama-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20260919T080000
+DTEND;TZID=America/New_York:20260919T153000
+SUMMARY:Tailgate Tribe at Alabama
+DESCRIPTION:Road gathering — check Facebook for where the Tribe is meeting. Kickoff 3:30 PM on ABC.
+LOCATION:Bryant-Denny Stadium, Tuscaloosa
+END:VEVENT
+END:VCALENDAR

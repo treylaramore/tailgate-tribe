@@ -1,0 +1,70 @@
+Tailgate Tribe — HostGator upload
+=================================
+
+These files are a complete static website. No PHP, WordPress, or Node required.
+They will run on any HostGator shared plan (Apache + public_html).
+
+How to replace www.tailgatetribe.com
+1. Log into HostGator cPanel.
+2. Open File Manager → public_html (the folder that currently holds the old site).
+3. Download a backup of the current site first (select all → Compress → download).
+4. Upload TailgateTribe-HostGator.zip, then Extract it into public_html.
+   Or upload EVERYTHING in this folder:
+   index.html, schedule.html, gameday.html, find-us.html, the-tribe.html,
+   css/, js/, photos/, fonts/, calendar/, favicon.svg, og.jpg, .htaccess
+5. If cPanel hides dotfiles, turn on "Show Hidden Files" so .htaccess uploads.
+6. If the old site was WordPress, delete or move the WordPress files
+   (wp-admin, wp-content, wp-includes, index.php) so index.html is the homepage.
+7. Visit tailgatetribe.com and hard-refresh.
+
+That’s it. Calendar files live in /calendar and work as downloads.
+
+
+How to change photos later (no rebuild needed)
+==============================================
+1. In cPanel File Manager, open public_html/photos.
+2. Upload a new JPG with the SAME filename as the photo you want to replace.
+   Overwrite when asked. Keep it a .jpg (not .jpeg / .png / .heic).
+3. Hard-refresh the site (or wait a few minutes if HostGator caches).
+
+Which file is which:
+  hero.jpg              Homepage full-screen background
+  tent.jpg              Front of the canopy (Find us + home “east of Lot 8” band)
+  canopy-lounge.jpg     Inside the tent — chairs, couches, screen (Gameday / Tribe)
+  canopy-lounge-43.jpg  Same lounge shot, cropped for the homepage gallery
+  canopy-inside.jpg     Other tent angle (gallery)
+  tomahawk.jpg          Tomahawk toss
+  punch.jpg             Red + gold punch dispensers
+  feast.jpg             Food / snacks on the table
+
+Tips: wider shots work better as hero.jpg. Square-ish or tall shots work
+better in the gallery. Aim under ~1.5 MB per photo.
+
+
+How to change wording later
+===========================
+Open the matching page in File Manager and click Edit:
+
+  index.html       Home — intro, punch/tent copy, FAQs
+  schedule.html    2026 games and kickoff times
+  gameday.html     Playbook, traditions, what’s under the tent
+  find-us.html     Address, map pin, how to spot the canopy
+  the-tribe.html   Packing list + full FAQ
+
+Change the sentences you see. Don’t delete the <tags> around the words
+(the bits in <angle brackets>) or the layout will break.
+
+The map pin is the Google Maps / OpenStreetMap link on find-us.html.
+Search that file for 30.4390911 to change coordinates.
+
+Kickoff times also live in the .ics files under calendar/. If you change
+a time on schedule.html, update the matching .ics too — or just ask for
+a fresh zip.
+
+Facebook group link appears on every page; search for facebook.com/groups.
+
+
+Easier option
+=============
+Send new photos or a note about the wording change and have the site
+rebuilt, then re-upload the zip over public_html. Same 7 steps as above.

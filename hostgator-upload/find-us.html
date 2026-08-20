@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<!-- tt-build:21 -->
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Find Us · Tailgate Tribe</title>
+<meta name="description" content="Free, family-friendly gameday fellowship for Florida State fans at every home football game. Look for the inflatable tent east of Lot 8."/>
+<meta name="theme-color" content="#782F40"/>
+<meta property="og:title" content="Tailgate Tribe"/>
+<meta property="og:description" content="Free, family-friendly gameday fellowship for Florida State fans at every home football game. Look for the inflatable tent east of Lot 8."/>
+<meta property="og:image" content="https://www.tailgatetribe.com/og.jpg"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="preload" href="fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css?v=16"/>
+<link rel="stylesheet" href="vendor/leaflet.css"/>
+</head>
+<body data-page="find">
+<header class="header">
+  <div class="stripe" aria-hidden="true"><span class="grow"></span><span class="gold"></span><span class="gap"></span><span class="gold"></span><span class="gap"></span><span class="gold"></span><span class="grow"></span></div>
+  <div class="header-bar">
+    <a class="brand" href="index.html"><svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#782F40"/><path d="M16 3c1.7 2.3 3.1 3.3 3.1 5.2 0 1.7-1.4 3-3.1 3s-3.1-1.3-3.1-3c0-1.9 1.4-2.9 3.1-5.2Z" fill="#CEB888"/><rect x="15" y="11" width="2.2" height="8" rx=".6" fill="#CEB888"/><path d="M16 29 L9.5 17.5 H22.5 Z" fill="#CEB888"/><path d="M16 25 L12 19 H20 Z" fill="#4A1C28"/></svg> Tailgate Tribe</a>
+    <nav class="desk" aria-label="Primary">
+      <a href="index.html" class="">Home</a>
+      <a href="schedule.html" class="">Schedule</a>
+      <a href="gameday.html" class="">Gameday</a>
+      <a href="find-us.html" class="active">Find us</a>
+      <a href="the-tribe.html" class="">The Tribe</a>
+    </nav>
+    <div>
+      <a class="btn btn-gold hide-desk-cta" href="https://www.facebook.com/groups/tailgatetribe/" target="_blank" rel="noreferrer">Join the group</a>
+      <button class="icon-btn" data-menu aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="gameday.html">Gameday</a>
+  <a href="find-us.html">Find us</a>
+  <a href="the-tribe.html">The Tribe</a>
+  <a class="btn btn-gold" href="https://www.facebook.com/groups/tailgatetribe/" target="_blank" rel="noreferrer">Join the Facebook group</a>
+</div>
+<main>
+<section class="page-head wrap">
+  <p class="kicker">Landmark</p>
+  <h1 class="display">Find the tent</h1>
+  <p class="lede">Look for us at the NW corner of Pensacola Street and Varsity Drive. Our tailgate is in the grassy area to the east of Lot 8. We have a black inflatable canopy with our name and spear on the sail — you can’t miss it.</p>
+  <p class="muted" style="font-family:ui-monospace,monospace;margin-top:.5rem">30.4390911, -84.3011454</p>
+  <div class="cta-row">
+    <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&query=30.4390911,-84.3011454" target="_blank" rel="noreferrer">Open in Google Maps</a>
+    <button class="btn btn-outline" type="button" data-copy="NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida. East of Lot 8. Pin: 30.4390911, -84.3011454">Copy address</button>
+  </div>
+</section>
+<section class="wrap">
+  <div id="lot-map" class="map-frame" role="region" aria-label="Map to Tailgate Tribe"></div>
+  <script src="vendor/leaflet.js"></script>
+  <script>
+  (function(){
+    if (!window.L) return;
+    var map = L.map("lot-map", { scrollWheelZoom: false });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap"
+    }).addTo(map);
+    map.fitBounds([[30.436, -84.3065],[30.4412, -84.2988]], { padding: [12, 12] });
+    var icon = L.divIcon({
+      className: "tribe-pin",
+      html: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="48" viewBox="0 0 36 48"><path fill="#782F40" stroke="#CEB888" stroke-width="2.2" d="M18 2.4c-8.1 0-14.6 6.5-14.6 14.6 0 10.4 14.6 28.2 14.6 28.2S32.6 27.4 32.6 17C32.6 8.9 26.1 2.4 18 2.4z"/><circle cx="18" cy="16.6" r="5.6" fill="#CEB888"/></svg>',
+      iconSize: [36, 48],
+      iconAnchor: [18, 46]
+    });
+    L.marker([30.4390911, -84.3011454], { icon: icon, title: "Tailgate Tribe" })
+      .addTo(map)
+      .bindPopup("Tailgate Tribe · east of Lot 8");
+    setTimeout(function(){ map.invalidateSize(); }, 250);
+  })();
+  </script>
+</section>
+<section class="wrap split" style="margin-top:1.5rem">
+  <img src="photos/tent.jpg" alt="The Tailgate Tribe inflatable canopy" style="width:100%;border-radius:1rem;object-fit:cover;min-height:20rem"/>
+  <div style="position:relative;min-height:20rem;border-radius:1rem;overflow:hidden;border:1px solid var(--border)">
+    <img src="photos/canopy-lounge.jpg" alt="Inside the canopy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+    <div style="position:absolute;inset:auto 0 0;padding:1.25rem;background:linear-gradient(to top, #14080c, transparent)">
+      <p class="kicker">Pin this</p>
+      <h3 style="color:var(--cream)">Pensacola & Varsity</h3>
+      <p class="muted">East of Lot 8 · Tallahassee, Florida</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap steps">
+    <article class="card"><p class="kicker">01</p><h3>Get to the corner</h3><p class="muted">NW corner of Pensacola Street and Varsity Drive, on the Florida State campus in Tallahassee.</p></article>
+    <article class="card"><p class="kicker">02</p><h3>Look east of Lot 8</h3><p class="muted">Lot 8 itself is reserved booster parking. We set up on the grass just east of it — not in a numbered stall.</p></article>
+    <article class="card"><p class="kicker">03</p><h3>Spot the inflatable canopy</h3><p class="muted">Black arched tubes, a garnet sail, Tailgate Tribe and the spear on the front. If you can see that, you’re in the right place.</p></article>
+    <article class="card"><p class="kicker">04</p><h3>Walk up</h3><p class="muted">No gate, no list. Say hey, grab a chair, stay as long as you like.</p></article>
+  </div>
+  <div class="wrap" style="margin-top:2rem">
+    <p class="muted" style="max-width:40rem">Follow official FSU gameday parking rules. Don’t park in reserved booster stalls. The tent is the landmark, not a parking pass.</p>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="stripe" aria-hidden="true"><span class="grow"></span><span class="gold"></span><span class="gap"></span><span class="gold"></span><span class="gap"></span><span class="gold"></span><span class="grow"></span></div>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand"><svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#782F40"/><path d="M16 3c1.7 2.3 3.1 3.3 3.1 5.2 0 1.7-1.4 3-3.1 3s-3.1-1.3-3.1-3c0-1.9 1.4-2.9 3.1-5.2Z" fill="#CEB888"/><rect x="15" y="11" width="2.2" height="8" rx=".6" fill="#CEB888"/><path d="M16 29 L9.5 17.5 H22.5 Z" fill="#CEB888"/><path d="M16 25 L12 19 H20 Z" fill="#4A1C28"/></svg> Tailgate Tribe</div>
+      <p class="muted">Gameday fellowship for Seminole fans at every home football game. Free, family-friendly, and fun under the inflatable tent.</p>
+    </div>
+    <div>
+      <p class="kicker">On the lot</p>
+      <p><a href="schedule.html">2026 schedule</a><br><a href="gameday.html">First-timer playbook</a><br><a href="find-us.html">Find the tent</a><br><a href="the-tribe.html">FAQ & what to bring</a></p>
+    </div>
+    <div>
+      <p class="kicker">The group</p>
+      <p><a href="https://www.facebook.com/groups/tailgatetribe/" target="_blank" rel="noreferrer">Facebook group</a><br>
+      <a href="https://www.facebook.com/share/g/1Dp7rGwiKw/" target="_blank" rel="noreferrer">Event listings</a><br>
+      Tallahassee, Florida</p>
+    </div>
+  </div>
+  <div class="wrap legal">
+    <span>Independent fan gathering. Not affiliated with Florida State University or Seminole Athletics.</span>
+    <span>© 2026 Tailgate Tribe</span>
+  </div>
+</footer>
+<script src="js/site.js?v=8"></script>
+<script>
+(function(){
+  document.querySelectorAll("[data-weather]").forEach(function(el){
+    var date = el.getAttribute("data-weather");
+    var icon = (el.querySelector("svg") && el.querySelector("svg").outerHTML) || "";
+    function paint(json){
+      var d = json && json.daily;
+      if (!d || !d.temperature_2m_max || !d.temperature_2m_max.length) throw new Error("empty");
+      var high = Math.round(d.temperature_2m_max[0]);
+      var low = Math.round(d.temperature_2m_min[0]);
+      var rain = (d.precipitation_probability_max && d.precipitation_probability_max[0]) || 0;
+      var parts = date.split("-");
+      var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      var when = months[+parts[1]-1] + " " + (+parts[2]);
+      el.innerHTML = icon + " " + when + " · Tallahassee · " + high + "° / " + low + "°" + (rain >= 30 ? " · " + rain + "% rain" : "");
+    }
+    function fail(){ el.innerHTML = icon + " Tallahassee forecast unavailable"; }
+    var remote = "https://api.open-meteo.com/v1/forecast?latitude=30.4390911&longitude=-84.3011454&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FNew_York&start_date=" + date + "&end_date=" + date;
+    fetch("weather.php?date=" + encodeURIComponent(date))
+      .then(function(r){ if (!r.ok) throw new Error("php"); return r.json(); })
+      .then(paint)
+      .catch(function(){
+        return fetch(remote).then(function(r){ if (!r.ok) throw new Error("wx"); return r.json(); }).then(paint);
+      })
+      .catch(fail);
+  });
+})();
+</script>
+</body>
+</html>

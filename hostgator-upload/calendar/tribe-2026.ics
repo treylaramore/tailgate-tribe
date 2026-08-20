@@ -1,0 +1,79 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tailgate Tribe//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tailgate Tribe 2026
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:nmsu-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20260829T120000
+DTEND;TZID=America/New_York:20260829T190000
+SUMMARY:Tailgate Tribe vs New Mexico State
+DESCRIPTION:Noon tailgate east of Lot 8. Kickoff 7:00 PM on The CW.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:smu-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20260907T120000
+DTEND;TZID=America/New_York:20260907T193000
+SUMMARY:Tailgate Tribe vs SMU
+DESCRIPTION:Labor Day Monday. Noon tailgate. Kickoff 7:30 PM on ESPN.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:alabama-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20260919T080000
+DTEND;TZID=America/New_York:20260919T153000
+SUMMARY:Tailgate Tribe at Alabama
+DESCRIPTION:Road gathering — check Facebook for where the Tribe is meeting. Kickoff 3:30 PM on ABC.
+LOCATION:Bryant-Denny Stadium, Tuscaloosa
+END:VEVENT
+BEGIN:VEVENT
+UID:cark-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20260926
+DTEND;VALUE=DATE:20260927
+SUMMARY:Tailgate Tribe vs Central Arkansas
+DESCRIPTION:Tailgate time TBA — we’ll post it in the Facebook group.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:virginia-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:Tailgate Tribe vs Virginia
+DESCRIPTION:Jefferson–Eppes Trophy. Tailgate time TBA.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:clemson-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Tailgate Tribe vs Clemson
+DESCRIPTION:Tailgate time TBA — we’ll post it in the Facebook group.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:ncstate-2026@tailgatetribe.com
+DTSTART;VALUE=DATE:20261121
+DTEND;VALUE=DATE:20261122
+SUMMARY:Tailgate Tribe vs NC State
+DESCRIPTION:Tailgate time TBA — we’ll post it in the Facebook group.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+BEGIN:VEVENT
+UID:florida-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20261127T103000
+DTEND;TZID=America/New_York:20261127T153000
+SUMMARY:Tailgate Tribe vs Florida
+DESCRIPTION:Friday rivalry. 10:30 AM tailgate. Kickoff 3:30 PM on ABC.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+END:VCALENDAR

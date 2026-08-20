@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tailgate Tribe//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tribe vs New Mexico State
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+UID:nmsu-2026@tailgatetribe.com
+DTSTART;TZID=America/New_York:20260829T120000
+DTEND;TZID=America/New_York:20260829T190000
+SUMMARY:Tailgate Tribe vs New Mexico State
+DESCRIPTION:Noon tailgate east of Lot 8. Kickoff 7:00 PM on The CW.
+LOCATION:NW corner of Pensacola Street and Varsity Drive, Tallahassee, Florida
+GEO:30.4390911;-84.3011454
+END:VEVENT
+END:VCALENDAR
